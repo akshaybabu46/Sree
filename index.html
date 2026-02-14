@@ -16,13 +16,11 @@
       justify-content: center;
       color: white;
 
-      /* BACKGROUND IMAGE (from assets folder) */
       background: url("assets/background.jpg") no-repeat center center fixed;
       background-size: cover;
       position: relative;
     }
 
-    /* Dark overlay for readability */
     body::before {
       content: "";
       position: absolute;
@@ -210,7 +208,6 @@
       background: rgba(255,255,255,0.26);
     }
 
-    /* FIRST KISS PHOTO STYLE */
     .photoFrame {
       margin-top: 18px;
       padding: 14px;
@@ -230,6 +227,31 @@
     }
 
     .photoFrame p {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 1.05rem;
+    }
+
+    /* VIDEO SECTION */
+    .videoFrame {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .videoFrame video {
+      width: 100%;
+      max-width: 560px;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    }
+
+    .videoFrame p {
       text-align: center;
       margin-top: 12px;
       font-size: 1.05rem;
@@ -291,8 +313,6 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
     const hearts = document.getElementById("hearts");
     const extraText = document.getElementById("extraText");
 
-    let stage = 0;
-
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -353,7 +373,6 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
             `;
 
             document.getElementById("continueBtn").addEventListener("click", () => {
-              stage++;
               stage2();
             });
 
@@ -384,20 +403,19 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
         </div>
       `;
 
-      status.innerHTML = "Type three words separated by commas.";
+      status.innerHTML = "Type anything (3 words).";
 
       document.getElementById("submitWords").addEventListener("click", () => {
         const input = document.getElementById("threeWords").value.trim();
 
         if (input.length < 3) {
-          status.innerHTML = "😒 That’s cheating. Give me at least 3 words.";
+          status.innerHTML = "😒 That’s cheating. Give me something.";
           return;
         }
 
         status.innerHTML = "😍 Hmm... Guddu approves. And blushes.";
         heartBurst(25);
 
-        stage++;
         setTimeout(stage3, 1200);
       });
     }
@@ -421,7 +439,7 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
         </div>
       `;
 
-      status.innerHTML = "This answer is safe... Guddu won’t get angry 😇 (maybe).";
+      status.innerHTML = "Type anything 😇";
 
       document.getElementById("submitHabit").addEventListener("click", () => {
         const input = document.getElementById("habitAnswer").value.trim();
@@ -434,7 +452,6 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
         status.innerHTML = "😂 Wow. Noted. Guddu will pretend he didn’t read that.";
         heartBurst(30);
 
-        stage++;
         setTimeout(stage4, 1300);
       });
     }
@@ -516,6 +533,15 @@ Happy Valentine’s Day, my beautiful wife. I love you more than words can ever 
 
           <b>Happy Valentine’s Day, my love.</b><br>
           <b>— Guddu ❤️</b>
+
+          <div class="videoFrame">
+            <p>🎥 One last surprise for you... (press play)</p>
+            <video controls autoplay>
+              <source src="assets/surprise.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>💘 I made this just for you, Sree.</p>
+          </div>
         `;
       });
     }
