@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Sree ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+
+      /* BACKGROUND IMAGE (from assets folder) */
+      background: url("assets/background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Dark overlay for readability */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+
+    .card {
+      width: 92%;
+      max-width: 780px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      position: relative;
+      z-index: 5;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2.2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .centerText {
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 18px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #ff2d55;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-size: 1rem;
+      opacity: 0.95;
+      text-align: center;
+    }
+
+    input {
+      margin-top: 14px;
+      padding: 12px;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 14px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .questionBox {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.25);
+      text-align: center;
+    }
+
+    .questionBox h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .questionBox p {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .runaway-btn {
+      position: absolute;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #ff2d55;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .runaway-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .glow {
+      animation: glowPulse 1.2s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+      to   { box-shadow: 0 0 35px rgba(255,255,255,0.85); }
+    }
+
+    .final-message {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 1.15rem;
+      display: none;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp linear forwards;
+      opacity: 0.85;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(1); opacity: 0.85; }
+      to { transform: translateY(-120vh) scale(1.8); opacity: 0; }
+    }
+
+    .choiceGrid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .choice {
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      font-size: 1rem;
+      min-width: 160px;
+      text-align: center;
+      transition: 0.2s;
+      user-select: none;
+    }
+
+    .choice:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.26);
+    }
+
+    /* FIRST KISS PHOTO STYLE */
+    .photoFrame {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .photoFrame img {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+    }
+
+    .photoFrame p {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 1.05rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card">
+    <h1 id="title">Happy Valentine’s Day, Sree ❤️</h1>
+
+    <p id="story">
+Happy Valentine’s Day ❤️
+
+I don’t think I say it enough, but you are the best thing that has ever happened to me. In the middle of all the responsibilities, stress, and everyday life, you are the calm in my heart. You are my comfort, my strength, and my home.
+
+When I look at you, I don’t just see my wife… I see my best friend, my biggest blessing, and the person I want to spend every lifetime with. You have loved me in ways I didn’t even know I needed. You’ve stood by me, supported me, and believed in me even during the moments when I doubted myself.
+
+Thank you for your patience, your sacrifices, your care, and your love. Thank you for making our home warm, for making my life meaningful, and for being the reason I smile even on difficult days.
+
+I may not always be perfect, but one thing will always be true: I choose you. Every day. In every situation. In every version of life.
+
+I promise to keep loving you more, to keep understanding you better, to keep protecting your heart, and to keep making you feel special — not just today, but always.
+
+You are my love, my peace, my forever.
+
+Happy Valentine’s Day, my beautiful wife. I love you more than words can ever explain.
+    </p>
+
+    <p id="extraText" class="centerText" style="font-size:1.15rem; margin-top:20px;">
+      😏 Are you ready to play a little game, Sree?
+    </p>
+
+    <button class="btn" id="nextBtn">Yes 😘</button>
+
+    <div id="stageArea"></div>
+    <div class="status" id="status"></div>
+    <div class="final-message" id="finalMessage"></div>
+  </div>
+
+  <button class="runaway-btn hidden" id="runawayBtn">Click me 💋</button>
+
+  <script>
+    const nextBtn = document.getElementById("nextBtn");
+    const stageArea = document.getElementById("stageArea");
+    const status = document.getElementById("status");
+    const title = document.getElementById("title");
+    const story = document.getElementById("story");
+    const runawayBtn = document.getElementById("runawayBtn");
+    const finalMessage = document.getElementById("finalMessage");
+    const hearts = document.getElementById("hearts");
+    const extraText = document.getElementById("extraText");
+
+    let stage = 0;
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = ["❤️","💋","💕","😍","🔥","💘","😘"][Math.floor(Math.random() * 7)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+      heart.style.fontSize = (18 + Math.random() * 30) + "px";
+      hearts.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    function heartBurst(amount = 30) {
+      for (let i = 0; i < amount; i++) {
+        setTimeout(createHeart, i * 60);
+      }
+    }
+
+    // ========= Stage 1 =========
+    function stage1() {
+      title.innerText = "Game 1: Memory Lane 🛶";
+      story.classList.add("centerText");
+      story.innerHTML = `
+        Okay Mrs. Romantic 😏❤️<br><br>
+        Let's see if you remember this...
+      `;
+
+      extraText.classList.add("hidden");
+
+      stageArea.innerHTML = `
+        <div class="questionBox">
+          <h2>Do you remember when I first kissed you?</h2>
+          <p>(Choose wisely... Guddu is watching 😈)</p>
+
+          <div class="choiceGrid">
+            <div class="choice" data-answer="wrong">At home 🏠</div>
+            <div class="choice" data-answer="wrong">In a car 🚗</div>
+            <div class="choice" data-answer="correct">On a boat 🛶</div>
+            <div class="choice" data-answer="wrong">In a restaurant 🍽️</div>
+          </div>
+        </div>
+      `;
+
+      status.innerHTML = "Click the correct answer...";
+
+      document.querySelectorAll(".choice").forEach(choice => {
+        choice.addEventListener("click", () => {
+          if (choice.dataset.answer === "correct") {
+            status.innerHTML = "😍 YES! Naughty memories unlocked...";
+            heartBurst(25);
+
+            stageArea.innerHTML = `
+              <div class="photoFrame">
+                <img src="assets/firstkiss.jpg" alt="Our First Kiss ❤️" />
+                <p>💘 That moment... I still feel it.</p>
+              </div>
+              <button class="btn" id="continueBtn">Continue 😏</button>
+            `;
+
+            document.getElementById("continueBtn").addEventListener("click", () => {
+              stage++;
+              stage2();
+            });
+
+          } else {
+            status.innerHTML = "😂 Wrong! Try again, Sree... think romantic.";
+            heartBurst(10);
+          }
+        });
+      });
+    }
+
+    // ========= Stage 2 =========
+    function stage2() {
+      title.innerText = "Game 2: The 3-Word Trap 😈";
+      story.innerHTML = `
+        Now this one is dangerous... 😏<br><br>
+        Choose your words carefully, Sree.<br>
+        Because Guddu will remember them forever. ❤️
+      `;
+
+      stageArea.innerHTML = `
+        <div class="questionBox">
+          <h2>If you had to describe Guddu using only 3 words...</h2>
+          <p>(Type anything. But I’ll judge you playfully 😌)</p>
+          <input id="threeWords" placeholder="Example: handsome, caring, annoying 😏" />
+          <br>
+          <button class="btn" id="submitWords">Lock it 🔒</button>
+        </div>
+      `;
+
+      status.innerHTML = "Type three words separated by commas.";
+
+      document.getElementById("submitWords").addEventListener("click", () => {
+        const input = document.getElementById("threeWords").value.trim();
+
+        if (input.length < 3) {
+          status.innerHTML = "😒 That’s cheating. Give me at least 3 words.";
+          return;
+        }
+
+        status.innerHTML = "😍 Hmm... Guddu approves. And blushes.";
+        heartBurst(25);
+
+        stage++;
+        setTimeout(stage3, 1200);
+      });
+    }
+
+    // ========= Stage 3 =========
+    function stage3() {
+      title.innerText = "Game 3: Confession Time 😌";
+      story.innerHTML = `
+        Okay Sree... honesty time 😏<br><br>
+        Answer this and I’ll let you move forward.
+      `;
+
+      stageArea.innerHTML = `
+        <div class="questionBox">
+          <h2>What is one habit of mine that annoys you...</h2>
+          <p>...but you still love it? 😈</p>
+
+          <input id="habitAnswer" placeholder="Type it here... (be honest 😳)" />
+          <br>
+          <button class="btn" id="submitHabit">Confess 😏</button>
+        </div>
+      `;
+
+      status.innerHTML = "This answer is safe... Guddu won’t get angry 😇 (maybe).";
+
+      document.getElementById("submitHabit").addEventListener("click", () => {
+        const input = document.getElementById("habitAnswer").value.trim();
+
+        if (input.length < 2) {
+          status.innerHTML = "😒 Come on... don’t be shy. Type something.";
+          return;
+        }
+
+        status.innerHTML = "😂 Wow. Noted. Guddu will pretend he didn’t read that.";
+        heartBurst(30);
+
+        stage++;
+        setTimeout(stage4, 1300);
+      });
+    }
+
+    // ========= Final Stage =========
+    function stage4() {
+      title.innerText = "Final Challenge: Catch Your Reward 🔥";
+      story.innerHTML = `
+        Alright Sree... you’ve done really well 😏❤️<br><br>
+        Now your reward is right here...<br>
+        but it’s being a little naughty 😈<br><br>
+        <b>If you can click it... you unlock your surprise.</b>
+      `;
+
+      stageArea.innerHTML = "";
+      status.innerHTML = "Try clicking the button... 😏";
+
+      runawayBtn.classList.remove("hidden");
+      runawayBtn.innerText = "Your reward 😘";
+      runawayBtn.classList.add("glow");
+
+      let attempts = 0;
+
+      function randomPosition() {
+        const padding = 140;
+        const x = Math.random() * (window.innerWidth - padding);
+        const y = Math.random() * (window.innerHeight - padding);
+        runawayBtn.style.left = x + "px";
+        runawayBtn.style.top = y + "px";
+        runawayBtn.style.transform = "translateX(0)";
+      }
+
+      randomPosition();
+
+      runawayBtn.addEventListener("mouseenter", () => {
+        attempts++;
+
+        if (attempts < 6) {
+          randomPosition();
+          status.innerHTML = "😏 Too slow, Mrs. Guddu...";
+        } 
+        else if (attempts < 12) {
+          randomPosition();
+          status.innerHTML = "😂 Awww struggling? Come closer...";
+        } 
+        else {
+          runawayBtn.style.left = "50%";
+          runawayBtn.style.top = "75%";
+          runawayBtn.style.transform = "translateX(-50%)";
+          status.innerHTML = "😈 Okay okay... I’ll stop running. Now click me.";
+        }
+      });
+
+      runawayBtn.addEventListener("click", () => {
+        runawayBtn.classList.add("hidden");
+        heartBurst(80);
+
+        status.innerHTML = "💖 Reward unlocked...";
+
+        finalMessage.style.display = "block";
+        finalMessage.innerHTML = `
+          💋 <b>Sree...</b><br><br>
+
+          You have no idea how much I love you.<br>
+          I don’t just love you like a husband loves his wife...<br>
+          I love you like my heart found its home. ❤️<br><br>
+
+          You are my favorite person.<br>
+          My peace.<br>
+          My madness.<br>
+          My comfort.<br>
+          And honestly... my biggest weakness. 😏🔥<br><br>
+
+          And yes... I still want you the same way I did in the beginning.<br>
+          Maybe even more. 😈💘<br><br>
+
+          I love you so much, Sree.<br>
+          I would do anything for you.<br><br>
+
+          <b>Happy Valentine’s Day, my love.</b><br>
+          <b>— Guddu ❤️</b>
+        `;
+      });
+    }
+
+    // ========= START GAME =========
+    nextBtn.addEventListener("click", () => {
+      nextBtn.classList.add("hidden");
+      stage1();
+    });
+  </script>
+
+</body>
+</html>
