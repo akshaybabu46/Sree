@@ -28,7 +28,7 @@ jobs:
           rsync -avz -e "ssh -i ssh_key.pem -o StrictHostKeyChecking=no" ./ $DOCKER_HOST:~/myapp
 
           #build and run container remotely
-          ssh -o StrichHostKeyChecking=no -i ssh_key.pem $DOCKER_HOST << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ssh_key.pem $DOCKER_HOST << 'EOF'
             cd ~/myapp
             docker stop myapp || true
             docker rm myapp || true
