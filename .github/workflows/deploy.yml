@@ -6,24 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  cicd:
     runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Stop docker images
+      - name: Deploy to Docker VM
+        env:
+          DOCKER_HOST: ${{ secrets.DOCKER_VM_HOST }} 
+          SSH_KEY: ${{ secrets.DOCKER_VM_SSH_KEY }}
         run: |
-          docker stop mywebsite_container || true
-          docker rm mywebsite_container || true
+          echo "$SSH_KEY" > ssh_key.pem
+          chmod 600 ssh_key.pem
 
-      - name: Build Docker image
-        run: docker build -t mywebsite:latest .
+          #Create app folder on remote VM
+          ssh -o StrictHostKeyChecking=no -i ssh_key.pem $DOCKER_HOST "mkdir -p ~/myapp"
 
-      - name: Run new container
-        run: |
-          docker run -d \
-            -p 8080:80 \
-            --name mywebsite_container \
-            mywebsite:latest
+          #copy files to remote VM
+          rsync -avz -e "ssh -i ssh_key.pem -o StrictHostKeyChecking=no" ./ $DOCKER_HOST:~/myapp
+
+          #build and run container remotely
+          ssh -o StrichHostKeyChecking=no -i ssh_key.pem $DOCKER_HOST << 'EOF'
+            cd ~/myapp
+            docker stop myapp || true
+            docker rm myapp || true
+            docker buid -t myapp .
+            docker run -d -p 8080:80 --name myapp myapp
+          EOF
+
